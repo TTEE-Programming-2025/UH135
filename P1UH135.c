@@ -2,7 +2,7 @@
 #include<stdlib.h>
 int main()
 {
-    
+    /*第一部分，個人風格畫面*/
     for(int i=0;i<=100;i++)
     {
       printf("=");
@@ -35,6 +35,22 @@ int main()
     printf("\n");
     getchar();
     system("CLS");
+
+    /*第二部分，輸入密碼*/
+    int password=2024;
+    printf("請輸入4字密碼\n");
+    scanf("%d",&password);
+    if(password == 2024)
+    {
+        printf("歡迎\n");
+    }
+    else
+    {
+        printf("輸入錯誤!\n");
+        return 0;
+    }
+
+    /*第三部分，清除螢幕並顯示主選單*/
 
 system("pause");
 return 0;
