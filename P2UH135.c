@@ -66,6 +66,7 @@ int main(){
                     case 'A':
                     case 'a': {
                         system("cls");
+                        system("clear");
                         char ch;
                         do {
                             printf("請輸入字元a-n: ");
@@ -91,12 +92,14 @@ int main(){
                         printf("按任意鍵回到主選單\n");
                         getch();
                         system("cls");
+                        system("clear");
                         break;
                     }
 
                     case 'B':
                     case 'b': {
                         system("cls");
+                        system("clear");
                         int n;
                         do {
                             printf("輸入1-9的整數\n");
@@ -116,6 +119,7 @@ int main(){
                         printf("按任意鍵回到主選單\n");
                         getch();
                         system("cls");
+                        system("clear");
                         break;
                     }
 
@@ -127,6 +131,7 @@ int main(){
                             scanf(" %c", &yn);
                             if (yn == 'y' || yn == 'Y') {
                                 system("cls");
+                                system("clear");
                                 break;
                             } else if (yn == 'n' || yn == 'N') {
                                 printf("程式結束，回到作業系統\n");
