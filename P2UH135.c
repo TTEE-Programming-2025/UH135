@@ -40,6 +40,7 @@ int main(){
     printf("⠀⠀⠀               ⠀          ⡾⠈⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⣿⠀⠀⠀⠀\n");
     printf("⠀⠀⠀                         ⠀⢻⣄⠀⠀⠀⣀⣠⠴⠛⠉⠉⠓⠦⣄⣀⠀⠀⠀⣠⡟⠀⠀⠀⠀\n");
     printf("     ⠀⠀⠀     ⠀               ⠀⠙⠛⠛⠛⠉⠀⠀⠀⠀⠀⠀⠀⠈⠙⠛⠛⠛⠋⠀⠀⠀⠀⠀\n");
+    printLine('=');
     printLine('*');
         // 密碼驗證
     const int password = 2025;
@@ -55,13 +56,14 @@ int main(){
             // 顯示選單
             char choice;
             do {
-                printf("\n--------------------------\n");
+                printf("--------------------------\n");
                 printf("| a. 畫出直角三角形       |\n");
                 printf("| b. 顯示乘法表           |\n");
                 printf("| c. 結束                 |\n");
                 printf("--------------------------\n");
                 printf("請輸入選項 (a/b/c): ");
                 scanf(" %c", &choice);
+                //選項abc
                 switch (choice) {
                     case 'A':
                     case 'a': {
@@ -147,7 +149,10 @@ int main(){
                         printf("無效選項，請重新輸入。\n");
                 }
             } while (1);
-        } else {
+        } 
+
+
+        else {
             wrong++;
             printf("輸入錯誤，剩餘嘗試次數: %d\n", 3 - wrong);
         }
