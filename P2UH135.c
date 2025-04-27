@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 //宣告直線函數
 void printLine(char ch) {
     for (int i = 0; i <=100 ; i++) {
@@ -61,39 +62,86 @@ int main(){
                 printf("--------------------------\n");
                 printf("請輸入選項 (a/b/c): ");
                 scanf(" %c", &choice);
-
                 switch (choice) {
+                    case 'A':
                     case 'a': {
-                        int i, j, h;
-                        printf("請輸入三角形的高度: ");
-                        scanf("%d", &h);
-                        for (i = 1; i <= h; i++) {
-                            for (j = 1; j <= i; j++) {
-                                printf("*");
+                        system("cls");
+                        char ch;
+                        do {
+                            printf("請輸入字元a-n: ");
+                            scanf(" %c", &ch);
+                            if (ch >= 'a' && ch <= 'n') {
+                                int h = ch - 'a' + 1;
+                                for (int i = 0; i < h; i++) {
+                                    // 印出空格
+                                    for (int j = 0; j < h - i - 1; j++) {
+                                        printf(" ");
+                                    }
+                                    // 印出字元
+                                    for (int j = h - i - 1; j < h; j++) {
+                                        printf("%c", 'a' + j);
+                                    }
+                                    printf("\n");
+                                }
+                                break;
+                            } else {
+                                printf("錯誤!請輸入字元a-n\n");
                             }
-                            printf("\n");
-                        }
+                        } while (1);
+                        printf("按任意鍵回到主選單\n");
+                        getch();
+                        system("cls");
                         break;
                     }
+
+                    case 'B':
                     case 'b': {
-                        int i, j;
-                        for (i = 1; i <= 9; i++) {
-                            for (j = 1; j <= 9; j++) {
-                                printf("%d×%d = %2d  ", i, j, i * j);
+                        system("cls");
+                        int n;
+                        do {
+                            printf("輸入1-9的整數\n");
+                            scanf("%d", &n);
+                            if (n >= 1 && n <= 9) {
+                                for (int i = 1; i <= n; i++) {
+                                    for (int j = 1; j <= n; j++) {
+                                        printf("%dx%d=%2d ", i, j, i * j);
+                                    }
+                                    printf("\n");
+                                }
+                                break;
+                            } else {
+                                printf("輸入錯誤!請輸入一個1-9的整數\n");
                             }
-                            printf("\n");
-                        }
+                        } while (1);
+                        printf("按任意鍵回到主選單\n");
+                        getch();
+                        system("cls");
                         break;
                     }
-                    case 'c':
-                        printf("結束選單\n");
+
+                    case 'C':
+                    case 'c': {
+                        char yn;
+                        do {
+                            printf("Continue? (y/n): ");
+                            scanf(" %c", &yn);
+                            if (yn == 'y' || yn == 'Y') {
+                                system("cls");
+                                break;
+                            } else if (yn == 'n' || yn == 'N') {
+                                printf("程式結束，回到作業系統\n");
+                                return 0;
+                            } else {
+                                printf("輸入錯誤!請輸入y或n\n");
+                            }
+                        } while (1);
                         break;
+                    }
+
                     default:
                         printf("無效選項，請重新輸入。\n");
                 }
-            } while (choice != 'c');
-
-            return 0;
+            } while (1);
         } else {
             wrong++;
             printf("輸入錯誤，剩餘嘗試次數: %d\n", 3 - wrong);
