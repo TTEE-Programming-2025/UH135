@@ -8,6 +8,7 @@
 
 char seats[SIZE][SIZE];
 
+// Initialize all seats to available ('-')
 void init_seats() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -16,6 +17,7 @@ void init_seats() {
     }
 }
 
+// Randomly reserve 10 seats with '*'
 void reserve_randomseats() {
     int count = 0;
     srand(time(NULL));
@@ -29,6 +31,7 @@ void reserve_randomseats() {
     }
 }
 
+// Print the current seating chart
 void seatlist() {
     printf("  123456789\n");
     for (int i = SIZE - 1; i >= 0; i--) {
@@ -40,11 +43,13 @@ void seatlist() {
     }
 }
 
+// Clear the screen (cross-platform)
 void clearscreen() {
     system("cls");
     system("clear");
 }
 
+// Display the main menu
 void menu() {
     printf("----------[Booking System]----------\n");
     printf("| a.Available seats                |\n");
@@ -54,13 +59,14 @@ void menu() {
     printf("------------------------------------\n");
 }
 
+// Wait for key press to return to menu
 void wait() {
     printf("\npress any key to return to the main menu");
     fflush(stdin);
     getchar();
 }
 
-// 找連續座位
+// Search for a continuous block of available seats
 int find_continuous_seats(int num, int *row, int *col) {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j <= SIZE - num; j++) {
@@ -81,7 +87,7 @@ int find_continuous_seats(int num, int *row, int *col) {
     return 0;
 }
 
-// 找兩列各兩個座位
+// Search for two rows with two seats available each
 int find_two_rows_pair(int *r1, int *c1, int *r2, int *c2) {
     for (int i = 0; i < SIZE - 1; i++) {
         for (int j = 0; j <= SIZE - 2; j++) {
@@ -96,19 +102,20 @@ int find_two_rows_pair(int *r1, int *c1, int *r2, int *c2) {
     return 0;
 }
 
-// 標示建議座位
+// Mark suggested seats with '@'
 void mark_suggestion(int row, int col, int num) {
     for (int i = 0; i < num; i++) {
         seats[row][col + i] = '@';
     }
 }
 
+// Mark pair suggestion across two rows with '@'
 void mark_pair_suggestion(int r1, int c1, int r2, int c2) {
     seats[r1][c1] = seats[r1][c1 + 1] = '@';
     seats[r2][c2] = seats[r2][c2 + 1] = '@';
 }
 
-// 接受建議
+// Confirm suggested seats and convert '@' to '*'
 void accept_suggestion() {
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
@@ -117,22 +124,22 @@ void accept_suggestion() {
     }
 }
 
-// 自選座位
+// Manual seat selection by user
 void manual_selection() {
     int n;
     char input[10];
-    printf("請輸入要選幾個座位 (1~4): ");
+    printf("Enter number of seats to select (1~4): ");
     scanf("%d", &n);
 
     if (n < 1 || n > 4) {
-        printf("數量錯誤，請重新選擇\n");
+        printf("Invalid number, please try again\n");
         wait();
         return;
     }
 
     for (int i = 0; i < n; i++) {
         while (1) {
-            printf("請輸入第 %d 個座位 (格式: 列-行，例如 2-5): ", i + 1);
+            printf("Enter seat %d (format: row-col, e.g., 2-5): ", i + 1);
             scanf("%s", input);
             int row, col;
             if (sscanf(input, "%d-%d", &row, &col) == 2 && row >= 1 && row <= 9 && col >= 1 && col <= 9) {
@@ -140,39 +147,40 @@ void manual_selection() {
                     seats[row - 1][col - 1] = '@';
                     break;
                 } else {
-                    printf("該座位已被選取或預約，請重新輸入\n");
+                    printf("Seat already reserved or taken, please try again\n");
                 }
             } else {
-                printf("格式錯誤，請重新輸入\n");
+                printf("Invalid format, please try again\n");
             }
         }
     }
 
     clearscreen();
     seatlist();
-    wait(); // 按任意鍵確認
-    accept_suggestion(); // 將 @ 轉為 *
+    wait(); // Confirm before finalizing
+    accept_suggestion(); // Convert '@' to '*'
 }
 
 int main(void) {
     int pwd, wrong = 0;
 
     for (int i = 0; i < 5; i++)
-        printf("* 歡迎使用自動訂位系統 *\n");
+        printf("* Welcome to the Auto Booking System *\n");
 
+    // Password check (3 attempts max)
     while (wrong < 3) {
-        printf("請輸入 4 位數密碼：");
+        printf("Please enter 4-digit password: ");
         scanf("%d", &pwd);
         if (pwd == password) {
             break;
         } else {
-            printf("密碼錯誤\n");
+            printf("Incorrect password\n");
             wrong++;
         }
     }
 
     if (wrong == 3) {
-        printf("錯誤三次，程式結束\n");
+        printf("3 failed attempts. Exiting program.\n");
         return 0;
     }
 
@@ -183,7 +191,7 @@ int main(void) {
     while (1) {
         clearscreen();
         menu();
-        printf("請輸入選項: ");
+        printf("Enter your option: ");
         scanf(" %c", &option);
 
         if (option == 'a' || option == 'A') {
@@ -193,7 +201,7 @@ int main(void) {
         } else if (option == 'b' || option == 'B') {
             clearscreen();
             int num;
-            printf("請問需要幾個座位 (1~4): ");
+            printf("How many seats do you need (1~4): ");
             scanf("%d", &num);
             int row, col, r1, c1, r2, c2;
             int found = 0;
@@ -215,13 +223,13 @@ int main(void) {
                 clearscreen();
                 seatlist();
                 char confirm;
-                printf("是否滿意安排？(y/n): ");
+                printf("Are you satisfied with the arrangement? (y/n): ");
                 scanf(" %c", &confirm);
                 if (confirm == 'y' || confirm == 'Y') {
                     accept_suggestion();
                 }
             } else {
-                printf("無法安排座位\n");
+                printf("Unable to arrange seats\n");
                 wait();
             }
         } else if (option == 'c' || option == 'C') {
@@ -234,10 +242,10 @@ int main(void) {
                 scanf(" %c", &confirm);
                 if (confirm == 'y' || confirm == 'Y') break;
                 else if (confirm == 'n' || confirm == 'N') return 0;
-                else printf("輸入錯誤\n");
+                else printf("Invalid input\n");
             }
         } else {
-            printf("選項錯誤，請重新輸入\n");
+            printf("Invalid option, please try again\n");
             wait();
         }
     }
