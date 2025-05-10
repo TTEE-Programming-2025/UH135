@@ -68,6 +68,9 @@ void wait() {
 
 // Search for a continuous block of available seats
 int find_continuous_seats(int num, int *row, int *col) {
+    int candidates[SIZE * SIZE][2];
+    int count = 0;
+
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j <= SIZE - num; j++) {
             int available = 1;
@@ -78,28 +81,49 @@ int find_continuous_seats(int num, int *row, int *col) {
                 }
             }
             if (available) {
-                *row = i;
-                *col = j;
-                return 1;
+                candidates[count][0] = i;
+                candidates[count][1] = j;
+                count++;
             }
         }
     }
-    return 0;
+
+    if (count == 0) return 0;
+
+    srand(time(NULL));
+    int idx = rand() % count;
+    *row = candidates[idx][0];
+    *col = candidates[idx][1];
+    return 1;
 }
 
 // Search for two rows with two seats available each
 int find_two_rows_pair(int *r1, int *c1, int *r2, int *c2) {
+    int pairs[SIZE * SIZE][4];
+    int count = 0;
+
     for (int i = 0; i < SIZE - 1; i++) {
         for (int j = 0; j <= SIZE - 2; j++) {
             if (seats[i][j] == '-' && seats[i][j + 1] == '-' &&
                 seats[i + 1][j] == '-' && seats[i + 1][j + 1] == '-') {
-                *r1 = i; *c1 = j;
-                *r2 = i + 1; *c2 = j;
-                return 1;
+                pairs[count][0] = i;
+                pairs[count][1] = j;
+                pairs[count][2] = i + 1;
+                pairs[count][3] = j;
+                count++;
             }
         }
     }
-    return 0;
+
+    if (count == 0) return 0;
+
+    srand(time(NULL));
+    int idx = rand() % count;
+    *r1 = pairs[idx][0];
+    *c1 = pairs[idx][1];
+    *r2 = pairs[idx][2];
+    *c2 = pairs[idx][3];
+    return 1;
 }
 
 // Mark suggested seats with '@'
