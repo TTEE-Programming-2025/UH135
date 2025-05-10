@@ -33,7 +33,7 @@ void reserve_randomseats() {
 
 // Print the current seating chart
 void seatlist() {
-    printf("  123456789\n");
+    printf("\\\\123456789\n");
     for (int i = SIZE - 1; i >= 0; i--) {
         printf("%d ", i + 1);
         for (int j = 0; j < SIZE; j++) {
@@ -161,6 +161,16 @@ void manual_selection() {
     accept_suggestion(); // Convert '@' to '*'
 }
 
+// revert suggestions
+void revert_suggestions(){
+    for(int i=0; i<SIZE; i++){
+        for(int j=0; j<SIZE; j++){
+            if(seats[i][j] == '@')
+                seats[i][j] ='-';
+        }
+    }
+}
+
 int main(void) {
     int pwd, wrong = 0;
 
@@ -227,6 +237,10 @@ int main(void) {
                 scanf(" %c", &confirm);
                 if (confirm == 'y' || confirm == 'Y') {
                     accept_suggestion();
+                } else {
+                    revert_suggestions();
+                    printf("Arrangement canceled.\n");
+                    wait();
                 }
             } else {
                 printf("Unable to arrange seats\n");
