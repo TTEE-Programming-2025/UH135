@@ -337,19 +337,19 @@ int main(void) {
         }
 
         switch (choice) {
-            case 'a': case 'A':
+            case 'a':
                 enter_student_grades();
                 break;
-            case 'b': case 'B':
+            case 'b':
                 display_all_student_grades();
                 break;
-            case 'c': case 'C':
+            case 'c':
                 search_student_grades();
                 break;
-            case 'd': case 'D':
+            case 'd':
                 rank_grades_by_average();
                 break;
-            case 'e': case 'E': {
+            case 'e': {
                 char confirm_exit;
                 do {
                     clear_screen();
